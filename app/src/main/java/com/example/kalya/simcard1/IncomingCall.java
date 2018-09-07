@@ -8,24 +8,30 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+
 /**
  * Created by kalya on 08-Jul-17.
  */
 
 public class IncomingCall extends BroadcastReceiver {
+    private FusedLocationProviderClient fusedLocationProviderClient;
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_RINGING)){
+            //Toast.makeText(context,"call ringing",Toast.LENGTH_LONG).show();
+        }
+        if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_OFFHOOK)){
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-            Toast.makeText(context,"call from:"+incomingNumber,Toast.LENGTH_LONG).show();
-            if ("+918309579985".equals(incomingNumber)){
-                Intent a = new Intent(context, MyService.class);
-                context.startService(a);
-            }
-            if ("+917997060210".equals(incomingNumber)){
-                Intent a = new Intent(context, MyService.class);
-                context.stopService(a);
-            }
+            //Toast.makeText(context,"call answered",Toast.LENGTH_LONG).show();
+            Intent a = new Intent(context, ImportantService.class);
+            a.putExtra("number",incomingNumber);
+            context.startService(a);
+        }
+        if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE)){
+            //Toast.makeText(context,"call cut",Toast.LENGTH_LONG).show();
+            Intent a = new Intent(context, ImportantService.class);
+            context.stopService(a);
         }
 
         /**try {
@@ -36,15 +42,13 @@ public class IncomingCall extends BroadcastReceiver {
             Log.e("Phone Reciever Error"," "+ e);
         }**/
     }
-    /**private class MyPhoneStateListner extends PhoneStateListener{
+    /*private class MyPhoneStateListner extends PhoneStateListener{
         public void OnCallStateChanged(int state,String incomingNumber){
             Log.d("MyPhoneStateListner",state+"incoming no:"+incomingNumber);
             if (state == 1){
                 String msg = "New Phone call Event.incoming Number:"+incomingNumber;
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(this,msg,duration);
-                toast.show();
+                Toast.makeText(IncomingCall.this,msg,Toast.LENGTH_LONG).show();
             }
         }
-    }**/
+    }*/
 }

